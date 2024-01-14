@@ -1,5 +1,5 @@
-% image = imread("data/test-images/0020.png");
-image = imread("data/Images-Patient-000302-01/602/0001.png");
+image = imread("data/Lenna.png");
+% image = imread('data/Images-Patient-002824-01/9/0001.png');
 image = im2gray(image);
 
 cannyEdges = edge(image, 'Canny');
@@ -11,7 +11,7 @@ hysteresisLowRange = [0.1, 0.2, 0.3];
 hysteresisHighRange = [0.3, 0.35, 0.4];
 neighborhoodSizeRange = [3, 5, 7];
 
-kernels = struct(...
+kernels = struct( ...
     'name', {'Roberts', 'Prewitt', 'Sobel'}, ...
     'kX', {[-1, 1], [-1, 0, 1; -1, 0, 1; -1, 0, 1], [-1, 0, 1; -2, 0, 2; -1, 0, 1]}, ...
     'kY', {[-1; 1], [-1, -1, -1; 0, 0, 0; 1, 1, 1], [-1, -2, -1; 0, 0, 0; 1, 2, 1]} ...
@@ -34,7 +34,7 @@ for sigma = sigmaRange
                         smoothed = gauss(image, filterSize, sigma);
                         Gx = conv2(smoothed, kernel.kX, 'same');
                         Gy = conv2(smoothed, kernel.kY, 'same');
-                        mag = sqrt(Gx.^2 + Gy.^2);
+                        mag = sqrt(Gx .^ 2 + Gy .^ 2);
                         dir = atan2(Gy, Gx);
                         suppressed = nonmaxsuppression(mag, dir);
                         edges = hysteresis(suppressed, hysteresisLow, hysteresisHigh, neighborhoodSize);
@@ -67,7 +67,7 @@ fprintf('Best Kernel: %s\n', bestKernel.name);
 fprintf('Best Edge Quality: %s\n', bestEdgeQuality);
 
 [Gx, Gy] = convolve(gauss(image, bestFilterSize, bestSigma), bestKernel.kX, bestKernel.kY);
-mag = sqrt(Gx.^2 + Gy.^2);
+mag = sqrt(Gx .^ 2 + Gy .^ 2);
 dir = atan2(Gy, Gx);
 suppressed = nonmaxsuppression(mag, dir);
 edges = hysteresis(suppressed, bestHysteresisLow, bestHysteresisHigh, bestNeighborhoodSize);
@@ -101,4 +101,5 @@ function fScore = evaluateEdgeQuality(edges, groundTruth)
     else
         fScore = 2 * (precision * recall) / (precision + recall);
     end
+
 end

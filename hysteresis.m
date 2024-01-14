@@ -12,13 +12,13 @@ function strongEdges = hysteresis(strongEdgeCandidates, lowThresholdRatio, highT
 
     halfNeighborhood = floor((neighborhoodSize - 1) / 2);
 
-    for y = 1 + halfNeighborhood : rows - halfNeighborhood
-        for x = 1 + halfNeighborhood : cols - halfNeighborhood
+    for y = 1 + halfNeighborhood:rows - halfNeighborhood
+        for x = 1 + halfNeighborhood:cols - halfNeighborhood
             if strongEdges(y, x) > 0
                 % N x N-1 connectivity
-                validPixels(y - halfNeighborhood : y + halfNeighborhood, x - halfNeighborhood : x + halfNeighborhood) = ...
-                    validPixels(y - halfNeighborhood : y + halfNeighborhood, x - halfNeighborhood : x + halfNeighborhood) ...
-                | (strongEdgeCandidates(y - halfNeighborhood : y + halfNeighborhood, x - halfNeighborhood : x + halfNeighborhood) > 0);
+                validPixels(y - halfNeighborhood:y + halfNeighborhood, x - halfNeighborhood:x + halfNeighborhood) = ...
+                    validPixels(y - halfNeighborhood:y + halfNeighborhood, x - halfNeighborhood:x + halfNeighborhood) ...
+                    | (strongEdgeCandidates(y - halfNeighborhood:y + halfNeighborhood, x - halfNeighborhood:x + halfNeighborhood) > 0);
             end
         end
     end

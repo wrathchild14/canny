@@ -23,6 +23,6 @@ function strongEdges = hysteresis(strongEdgeCandidates, lowThresholdRatio, highT
         end
     end
 
-    strongEdges(validPixels) = 255;
-    strongEdges(strongEdges > 0) = 255;
+    strongEdges(validPixels) = 1;
+    strongEdges(strongEdges > 0) = 1;
 end

@@ -1,6 +1,6 @@
 function edges = canny(image)
-    sigma = 1;
-    smoothedImage = gauss(image, 5, sigma);
+    sigma = 1.5;
+    smoothedImage = gauss(image, 7, sigma);
     
     % Sobel
     kX = [-1, 0, 1; -2, 0, 2; -1, 0, 1];

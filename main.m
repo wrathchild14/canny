@@ -1,18 +1,18 @@
-originalImage = imread('data/Lenna.png');
-% originalImage = imread('data/Images-Patient-000302-01/602/0010.png');
-% originalImage = imread('data/Images-Patient-002824-01/9/0012.png');
-% originalImage = imread('data/test-images/0001.png'); 
+image = imread('data/Lenna.png');
+% image = imread('data/Images-Patient-000302-01/602/0010.png');
+% image = imread('data/Images-Patient-002824-01/9/0114.png');
+% image = imread('data/test-images/0015.png'); 
 
-originalImage = im2gray(originalImage);
+image = im2gray(image);
 
-cannyEdges = canny(originalImage);
+cannyEdges = canny(image);
 
-matlabCannyEdges = edge(originalImage, 'canny');
+matlabCannyEdges = edge(image, 'Canny');
 
 figure;
 
 subplot(1, 3, 1);
-imshow(originalImage);
+imshow(image);
 title('Original Image');
 
 subplot(1, 3, 2);
